@@ -4,7 +4,6 @@ import { verify } from "jsonwebtoken";
 
 class CheckBalanceController {
     async handle(req: Request, res: Response) {
-
         // getting user ID from the token so it can only see it's balance
         const JWTsecret = "88df6abc268676d3e10f8e5388f6a127";
         const authToken = req.headers.authorization as string;

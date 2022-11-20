@@ -15,10 +15,10 @@ class FilterTransactionController {
         const getUserId = decoded.sub; // sub === user ID
         const userId = Number(getUserId);
 
-        const { initDate, finalDate } = req.body;
+        const { debit, credit, date, initDate, finalDate } = req.body;
 
         const filterTransactionService = new FilterTransactionService();
-        const transactions = await filterTransactionService.execute({ userId, initDate, finalDate });
+        const transactions = await filterTransactionService.execute({ userId, debit, credit, date, initDate, finalDate });
 
         return res.status(200).json(transactions);
     }

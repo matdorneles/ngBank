@@ -16,19 +16,19 @@ class LoginUserService {
             }
         });
 
-        const idStr = String(user?.id);
-        const usernameStr = String(user?.username);
-        const passwordStr = String(user?.password);
-        const JwtSecret = "88df6abc268676d3e10f8e5388f6a127";
-
         if(!user) {
-            return 'unauthorized';
+            throw new Error("Username não encontrado");
         }
+
+        const idStr = String(user.id);
+        const usernameStr = String(user.username);
+        const passwordStr = String(user.password);
+        const JwtSecret = "88df6abc268676d3e10f8e5388f6a127";
 
         const passwordMatch = await compare(password, passwordStr)
 
         if (!passwordMatch) {
-            return 'unauthorized';
+            throw new Error("Username ou senha incorretos");
         }
 
         // If passes proceed

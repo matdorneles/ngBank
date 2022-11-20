@@ -9,11 +9,6 @@ class LoginUserController {
 
         const user = await loginUserService.execute({ username, password });
 
-        // validate
-        if (user === 'unauthorized') {
-            return res.status(401).json('Username/senha incorreto');
-        }
-
         return res.status(200).json(user);
     }
 }

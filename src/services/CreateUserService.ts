@@ -17,13 +17,19 @@ class CreateUserService {
         });
 
         if (userAlreadyExists) {
-            return "userExists";
+            throw new Error("Username já existe");
         }
-
-        const account = await this.createAccount();
+        
+        const account = await prismaClient.account.create({
+            data: {
+                balance: 100.0
+            }, select: {
+                id: true
+            }
+        });
 
         const passwordHash = await hash(password, 8);
-
+        
         const user = await prismaClient.user.create({
             data: {
                 username: username,
@@ -33,18 +39,6 @@ class CreateUserService {
                 id: true,
                 username: true,
                 accountId: true
-            }
-        })
-
-        return user;
-    }
-
-    async createAccount() {
-        const account = await prismaClient.account.create({
-            data: {
-                balance: 100.0
-            }, select: {
-                id: true
             }
         });
 

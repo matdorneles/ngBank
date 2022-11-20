@@ -18,7 +18,14 @@ class CheckTransactionService {
 
         const transactions = await prismaClient.transaction.findMany({
             where: {
-                debitedAccountId: account?.accountId
+                OR: [
+                    {
+                        debitedAccountId: account.accountId
+                    },
+                    {
+                        creditedAccountId: account.accountId
+                    }
+                ]
             }
         });
 

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { CreateUserService } from "../services/CreateUserService";
-import { schema } from "../passwordValidator/index";
+import { schema } from "../passwordValidator";
 
 class CreateUserController {
     async handle(req: Request, res: Response) {
@@ -21,14 +21,9 @@ class CreateUserController {
         }
 
         // if all validations pass procceed
-        
         const createUserService = new CreateUserService();
 
         const user = await createUserService.execute({ username, password });
-
-        if(user === 'userExists') {
-            return res.status(400).json("Este username já está registrado")
-        }
 
         return res.status(201).json(user)
     }

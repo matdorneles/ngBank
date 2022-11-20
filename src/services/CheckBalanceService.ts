@@ -14,9 +14,13 @@ class CheckBalanceService {
             }
         });
 
+        if (!user) {
+            throw new Error("Usuário não encontrado");
+        }
+
         const account = await prismaClient.account.findFirst({
             where: {
-                id: user?.accountId
+                id: user.accountId
             }, select: {
                 balance: true
             }
