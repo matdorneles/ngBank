@@ -8,6 +8,8 @@ RUN npm install
 
 COPY . .
 
+RUN prisma migrate dev --name init
+
 EXPOSE 3333
 
 CMD [ "node" "server.ts" ]
